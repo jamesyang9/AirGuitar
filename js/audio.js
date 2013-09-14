@@ -120,9 +120,10 @@
 
     MIDI.loadPlugin({
         soundfontUrl: "./soundfont/",
-        instrument: "acoustic_guitar_steel",
+        instrument: "electric_guitar_jazz",
         callback: function() {        
-            guitar = MIDI.Soundfont.acoustic_guitar_steel;
+            //guitar = MIDI.Soundfont.acoustic_guitar_steel;
+            guitar = MIDI.Soundfont[_.keys(MIDI.Soundfont)[0]];
         }
     });
 })();
