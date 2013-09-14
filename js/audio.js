@@ -71,7 +71,7 @@
     var repeats = 0;
     var prog = 1;
     window.onStrum = function() {
-        var chord = tranpose(chords[progressions[prog][chordIndex]], current.chord);
+        var chord = tranpose(chords[progressions[prog][chordIndex]], Math.floor((current.chord - 2) / 2));
         console.log(chordIndex, prog);
         if (repeats == 1) {
             if (chordIndex == progressions[prog].length - 1) {

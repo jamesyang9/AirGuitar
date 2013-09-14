@@ -4,7 +4,7 @@
 	current.chord = 0;
 	current.boxSize = 15;
 
-    var strumThreshold = 100;
+    var strumThreshold = 200;
 
 	$(document).ready(function () {
 
