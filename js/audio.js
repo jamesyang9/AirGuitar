@@ -34,6 +34,14 @@
         ['G', 'Em', 'C', 'D']
     ]
 
+    var chordKeyCodes = {
+        65: 'A',
+        68: 'D', 
+        69: 'Em',
+        71: 'G',
+        67: 'C'
+    }
+
     function tranpose(chord, octaves) {
         var newChord = [];
         _.forEach(chord, function(note) {
@@ -66,25 +74,41 @@
         }
     }
 
+    var usingKey = false;
+    var chordHeld;
+    $(document).keydown(function(e) {
+        usingKey = true;
+        chordHeld = chordKeyCodes[e.which];
+    });
+
+    $(document).keyup(function(e) {
+        usingKey = false;
+    });
+
     var down = true;
     var chordIndex = 0;
     var repeats = 0;
     var prog = 1;
     window.onStrum = function() {
-        var chord = tranpose(chords[progressions[prog][chordIndex]], Math.floor((current.chord - 2) / 2));
-        console.log(chordIndex, prog);
-        if (repeats == 1) {
-            if (chordIndex == progressions[prog].length - 1) {
-                prog = ++prog % progressions.length;
-                chordIndex = 0;
+        if (usingKey) {
+            playChord(chords[chordHeld], down);
+        } else {
+            var chord = tranpose(chords[progressions[prog][chordIndex]], Math.floor((current.chord - 2) / 2));
+            console.log(chordIndex, prog);
+            if (repeats == 1) {
+                if (chordIndex == progressions[prog].length - 1) {
+                    prog = ++prog % progressions.length;
+                    chordIndex = 0;
             } else {
                 chordIndex = ++chordIndex % progressions[prog].length;
             }
             repeats = 0;
-        } else {
-            repeats++;
+            } else {
+                repeats++;
+            }
+            playChord(chord, down);
         }
-        playChord(chord, down);
+
         down = !down;
     }
 
