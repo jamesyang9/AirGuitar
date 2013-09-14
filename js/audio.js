@@ -14,7 +14,7 @@
     var chords = {
         'Open': ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'],
         'Em':   ['E2', 'G3', 'C3', 'G3', 'B3', 'E4'],
-        'G':    ['G1', 'B1', 'D2', 'G2', 'B2', 'G3'],
+        'G':    ['G2', 'B2', 'D2', 'G2', 'B2', 'G3'],
         'D':    ['D2', 'A3', 'D3', 'A4', 'D4', 'Gb4'],
         'A':    ['A2', 'E3', 'A4', 'Db4', 'E4', 'A5'],
         'C':    ['C2', 'E3', 'G3' , 'C4', 'E4', 'G4'],
@@ -22,7 +22,7 @@
         'Am':   ['A2', 'C3', 'E3', 'A4', 'C4', 'E4'],
         'As':   ['Bb2','Bb3','Bb4','Bb5'],
         'F':    ['F2', 'A3', 'C3', 'F3' ,'A4', 'C4'],
-        'Cs'    ['Cs'] 
+        'Cs':   ['Db1', 'Db2','Db3','Db4','Db5'] 
     }
 
     /*
@@ -48,7 +48,8 @@
         67: 'C',
         66: 'B',
         70: 'F',
-        81: 'As'
+        81: 'As',
+        86: 'Cs'
         
     }
 
@@ -89,6 +90,7 @@
     $(document).keydown(function(e) {
         usingKey = true;
         chordHeld = chordKeyCodes[e.which];
+        playChord(chords[chordHeld], down);
     });
 
     $(document).keyup(function(e) {
