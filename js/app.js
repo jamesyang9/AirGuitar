@@ -25,7 +25,7 @@
 		canvases.width(content.width());
 		canvases.height(content.height());
 		content.css('left', (w - content.width()) / 2);
-		content.css('top', ((h - content.height()) / 2) + 55);
+		content.css('top', ((h - content.height()) / 2) + 75);
 	}
 	$(window).resize(resize);
 	$(window).ready(function () {
@@ -49,6 +49,13 @@
 			return false;
 		});
 	});
+
+    $('button').click(function() {
+        $('button').removeClass('current');
+        $(this).addClass('current');
+        
+        // logic for changing modes here
+    });
 
 	function hasGetUserMedia() {
 		// Note: Opera builds are unprefixed.
@@ -106,6 +113,7 @@
 		$('.loading').fadeOut();
 		$('#hotSpots').fadeIn();
 		$('body').addClass('black-background');
+        $('#header').delay(600).fadeIn(600);
 		$(".instructions").delay(600).fadeIn();
 		$(canvasSource).delay(600).fadeIn();
 		$(canvasBlended).delay(600).fadeIn();
