@@ -4,6 +4,8 @@
 	current.chord = 0;
 	current.boxSize = 15;
 
+    var strumThreshold = 100;
+
 	$(document).ready(function () {
 
 		for(var i = 0; i < 5; i++) {
@@ -13,7 +15,7 @@
 			$("#box"+i).on('motion', function (ev, data) {
 				if(data.confidence > 50) {
 					current.chord = $(this).data("number");
-					console.log(current.chord);
+					//console.log(current.chord);
 				}
 			});
 		}
@@ -30,8 +32,9 @@
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 60 && ((ev.timeStamp - current.lastStrumTime) > 200)) {
-			console.log('motion detected on strum');
+		if(data.confidence > 60 && ((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
+            onStrum();
+			//console.log('motion detected on strum');
 			//console.log(lastStrum);
 			//console.log(ev);
 			//console.log(data);
