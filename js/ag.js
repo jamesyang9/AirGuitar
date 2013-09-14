@@ -4,7 +4,7 @@
 	current.chord = 0;
 	current.boxSize = 15;
 
-    var strumThreshold = 200;
+    var strumThreshold = 250;
 
 	$(document).ready(function () {
 
@@ -32,7 +32,7 @@
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 60 && ((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
+		if(data.confidence > 40 && ((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
             onStrum();
 			//console.log('motion detected on strum');
 			//console.log(lastStrum);

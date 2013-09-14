@@ -15,9 +15,12 @@
         'Open': ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'],
         'Em':   ['E2', 'G3', 'C3', 'G3', 'B3', 'E4'],
         'G':    ['G2', 'B2', 'D3', 'G3', 'B3', 'G4'],
-        'D':    [            'D3', 'A4', 'D4', 'Gb4'],
-        'A':    [      'A2', 'E3', 'A4', 'Db4', 'E4'],
-        'C':    [      'C2', 'E3', 'G3', 'D4', 'E4']
+        'D':    ['D2', 'A3', 'D3', 'A4', 'D4', 'Gb4'],
+        'A':    ['A2', 'E3', 'A4', 'Db4', 'E4', 'A5'],
+        'C':    ['C2', 'E3', 'G3' , 'C4', 'E4', 'G4'],
+        'B':    ['B2', 'Eb3', 'Gb3', 'B4', 'Eb4', 'Gb4'],
+        'Am':   ['A2', 'C3', 'E3', 'A4', 'C4', 'E4'],
+        'F':    ['F2', 'A3', 'C3', 'F3' ,'A4', 'C4']
     }
 
     /*
@@ -36,10 +39,13 @@
 
     var chordKeyCodes = {
         65: 'A',
+        83: 'Am',
         68: 'D', 
         69: 'Em',
         71: 'G',
-        67: 'C'
+        67: 'C',
+        66: 'B'
+        
     }
 
     function tranpose(chord, octaves) {
@@ -82,7 +88,7 @@
     });
 
     $(document).keyup(function(e) {
-        usingKey = false;
+        //usingKey = false;
     });
 
     var down = true;

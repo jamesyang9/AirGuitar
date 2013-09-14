@@ -15,7 +15,7 @@
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 60 && ((ev.timeStamp - current.lastStrumTime) > 200)) {
+		if(data.confidence > 60 && ((ev.timeStamp - current.lastStrumTime) > 600)) {
 			console.log('motion detected on strum');
 			//console.log(lastStrum);
 			//console.log(ev);
