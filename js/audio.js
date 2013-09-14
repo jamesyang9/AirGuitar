@@ -90,7 +90,7 @@
     var repeats = 0;
     var prog = 1;
     window.onStrum = function() {
-        if (usingKey) {
+        if (usingKey && chordHeld) {
             playChord(chords[chordHeld], down);
         } else {
             var chord = tranpose(chords[progressions[prog][chordIndex]], Math.floor((current.chord - 2) / 2));
