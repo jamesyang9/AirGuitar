@@ -8,31 +8,48 @@
 
     var width = 800,
         height = 600,
-        factor = 5,
-        rWidth = width / factor,
-        rHeight = height / factor,
-        threshold = 20;
+        factor = 10,
+        rWidth = 400 / factor,
+        rHeight = 400 / factor,
+        threshold = 80;
 
 
     function render() {
         detector.update();
+
+        var maxAvg = 0, maxI = 0, maxJ = 0;
         for (var i = 0; i < factor; i++) {
-             for (var j = 0; j < factor; j++) {
-                var avg = detector.getMotionAverage(i * rWidth, j * rHeight, (i + 1) * rWidth, (j + 1) * rHeight, 4);
-                if (avg > threshold) {
-                    motion(i, j, avg);
+            for (var j = 0; j < factor; j++) {
+                var avg = detector.getMotionAverage(i * rWidth, j * rHeight, rWidth, rHeight, 4);
+                if (avg > maxAvg) {
+                    maxAvg = avg;
+                    maxI = i;
+                    maxJ = j;
                 }
+
             }
         }
+
+        if (maxAvg > threshold) {
+            var dist = Math.sqrt(maxI*maxI + maxJ*maxJ);
+            onNoteChange(dist);
+            console.log('moving', dist);
+        }
+        
+        var bottomLeft = detector.getMotionAverage(width - 200, height - 200, 200, 200, 4);
+        if (bottomLeft > threshold) {
+            onStrum(bottomLeft);
+        }
+
         setTimeout(render, 100);
     }
     
-    function motion(i, j, avg) {
-        if (i >= 4 && j >= 2) {
-            console.log('strumming', i, j);
-        } else  {
-            console.log('note change', i, j);
-        }
+    function onStrum(avg) {
+        
+    }
+
+    function onNoteChange(dist) {
+
     }
 
     navigator.webkitGetUserMedia({video: true}, function(stream) {
