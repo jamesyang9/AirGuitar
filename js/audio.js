@@ -117,17 +117,6 @@
         instrument: "acoustic_guitar_steel",
         callback: function() {        
             guitar = MIDI.Soundfont.acoustic_guitar_steel;
-            /*setInterval(function() {
-                var chord = chords[progressions[prog][chordIndex]];
-                if (repeats == 1) {
-                    chordIndex = ++chordIndex % progressions[prog].length;
-                    repeats = 0;
-                } else {
-                    repeats++;
-                }
-                playChord(chord, down);
-                down = !down;
-            }, 1000);*/
         }
     });
 })();
