@@ -37,7 +37,8 @@
         }
         
         var bottomLeft = detector.getMotionAverage(width - 200, height - 200, 200, 200, 4);
-        if (bottomLeft > threshold) {
+        if (bottomLeft > threshold - 50) {
+            console.log('strumming');
             onStrum(bottomLeft);
         }
 
