@@ -5,7 +5,7 @@
 		boxSize : 15,
 		chordDelay : 15,
         mode : 'easy',
-		strumThreshold : 300
+		strumThreshold : 250
 	}
 
     // Make guitar boxes
@@ -81,7 +81,7 @@
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 50 && current.mode != "harp") {
+		if(data.confidence > 40 && current.mode != "harp") {
 			if(((ev.timeStamp - current.lastStrumTime) > current.strumThreshold)) {
 				onStrum();
 				//console.log('motion detected on strum');

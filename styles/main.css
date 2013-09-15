@@ -245,9 +245,9 @@ video {
 }
 
 .box {
-	height: 35%;
+	height: 18%;
 	width: 15%;
-
+    opacity: 0.01!important;
 }
 
 #harp-string {
