@@ -81,7 +81,7 @@
             setTimeout(_.bind(function(j) {
                 var volume = 0.7 + j / chord.length * 0.3;
                 play(chord[down ? j : (chord.length - j - 1)], volume);
-            }, {}, i), 150 * i);
+            }, {}, i), current.chordDelay * i);
         }
     }
 
@@ -103,6 +103,7 @@
     var chordIndex = 0;
     var repeats = 0;
     var prog = 1;
+
     window.onStrum = function() {
         if (usingKey && chordHeld) {
             playChord(chords[chordHeld], down);
