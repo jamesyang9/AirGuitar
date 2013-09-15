@@ -48,4 +48,24 @@
 		}
 
 	});
+
+	$('#harp').click(function (ev) {
+		$(".box").css({
+			left: "0%",
+			width: "80%"
+		});
+		$('#strum').on('motion', function(ev, data){
+			if(data.confidence > 60) {
+				if(((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
+					onStrum();
+					//console.log('motion detected on strum');
+					//console.log(lastStrum);
+					//console.log(ev);
+					//console.log(data);
+				}
+				current.lastStrumTime = ev.timeStamp;
+			}
+
+		});
+	});
 })();
