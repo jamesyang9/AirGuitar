@@ -29,14 +29,15 @@
 
 	// Make harp boxes
 	for(var i = 0; i < 9; i++) {
-		var offset = 10*i;
+		var offset = 9*i;
 		$("#hotSpots").append('<div id="harp-note'+i+'" class="harp-note" style="top:'+offset+'%">'+offset+'</div>');
 		$("#harp-note"+i).data("number", i);
 	}
 
 	$(".harp-note").on('motion', function (ev, data) {
-		if(current.mode === 'harp' && data.confidence > 50) {
+		if(current.mode == 'harp' && data.confidence > 50) {
 			//console.log($(this).data("number"));
+			console.log($(this).data("number"));
 			current.chord = $(this).data("number");
             onNoteChange();
 			//console.log(current.chord);
@@ -64,6 +65,7 @@
 
 	// Light up on activity.
 	$(window).on('motion', function(ev, data){
+		console.log(current.chord);
 		//console.log('detected motion at', new Date(), 'with data:', data);
 		if(data.confidence > 90 && false) {
 			var spot = $(data.spot.el);
@@ -92,6 +94,7 @@
 
 	$("#harp-string").on('motion', function(ev, data){
 		if(data.confidence > 50 && current.mode == "harp") {
+			console.log("hi");
 			if(((ev.timeStamp - current.lastStrumTime) > current.strumThreshold)) {
 				onStrum();
 				current.lastStrumTime = ev.timeStamp;
