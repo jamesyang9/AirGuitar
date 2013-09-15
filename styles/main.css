@@ -249,9 +249,11 @@ video {
 	width: 15%;
 }
 
-.harp-string {
+#harp-string {
 	height: 5%;
 	width: 70%;
+	left: 30%;
+	top: 70%;
 }
 
 .harp-note { 
