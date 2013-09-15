@@ -10,12 +10,11 @@
         'D':    [            'D3', 'A3', 'D4', 'G4'],
         'A':    [      'A2', 'E3', 'A3', 'A4', 'E4'],
         'C':    [      'C3', 'E3', 'G3', 'C4', 'E4'],
-        'B':    ['B2', 'Eb3', 'Gb3', 'B4', 'Eb4', 'Gb4'],
-        'Am':   ['A2', 'C3', 'E3', 'A4', 'C4', 'E4'],
-        //'As':   ['Bb2','Bb3','Bb4','Bb5'],
-        'As':   [      'B2', 'Gb3', 'Bb4', 'Bb4', 'F4'],
-        'F':    ['F2', 'A3', 'C3', 'F3' ,'A4', 'C4'],
-        'Cs':   ['Db1', 'Db2','Db3','Db4','Db5'] 
+        'B':    [      'B2', 'F3', 'B3', 'D4', 'G4'], // ??
+        'Am':   ['E2', 'A2', 'E3', 'A3', 'C4', 'E4'],
+        'As':   ['Bb2', 'D3', 'F3', 'Bb3', 'D4'],
+        'F':    ['F2', 'A2', 'F3', 'A3', 'C4', 'F4'],
+        'Cs':   ['F2', 'Ab2', 'Db3', 'F3', 'Ab3', 'Db4']
     }
 
     /*
@@ -79,7 +78,7 @@
         
         for (var i = 0; i < chord.length; i++) {
             setTimeout(_.bind(function(j) {
-                var volume = 0.7 + j / chord.length * 0.3;
+                var volume = 0.8 + j / chord.length * 0.2;
                 play(chord[down ? j : (chord.length - j - 1)], volume);
             }, {}, i), current.chordDelay * i);
         }
@@ -90,7 +89,6 @@
     $(document).keydown(function(e) {
         usingKey = true;
         chordHeld = chordKeyCodes[e.which];
-        //playChord(chords[chordHeld], down);
     });
 
     $(document).keyup(function(e) {
