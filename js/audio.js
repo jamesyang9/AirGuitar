@@ -144,7 +144,6 @@
                     chordIndex = ++chordIndex % progressions[prog].length;
                 }
 
-                current.chord = chordIndex;
                 onNoteChange();
                 repeats = 0;
             } else {
@@ -174,7 +173,7 @@
         } else {
             switch (current.mode) {
             case 'easy':
-                chord = progressions[prog][current.chord];
+                chord = progressions[prog][chordIndex] + (2 + Math.floor((current.chord - 2) / 2))
                 break;
                 
             case 'medium':
