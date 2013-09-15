@@ -38,10 +38,29 @@
 		}
 	});
 
+	for(var i = 3; i < 9; i++) {
+		var offset = 10*i;
+		$("#hotSpots").append('<div class="harp-strings" style="top:'+offset+'%"></div>');
+		//$("#harp-note"+i).data("number", i);
+	}	
+
+	$(".harp-strings").on('motion', function (ev, data) {
+		//console.log('detected motion at', new Date(), 'with data:', data);
+		if(data.confidence > 30 && current.mode === "harp") {
+			var spot = $(data.spot.el);
+			spot.addClass('active');
+			//console.log(data.confidence);
+			setTimeout(function(){
+				spot.removeClass('active');
+			}, 230);
+
+		}
+	})
+
 	// Light up on activity.
 	$(window).on('motion', function(ev, data){
 		//console.log('detected motion at', new Date(), 'with data:', data);
-		if(data.confidence > 90) {
+		if(data.confidence > 90 && false) {
 			var spot = $(data.spot.el);
 			spot.addClass('active');
 			//console.log(data.confidence);
@@ -54,7 +73,7 @@
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 50) {
+		if(data.confidence > 50 && current.mode != "harp") {
 			if(((ev.timeStamp - current.lastStrumTime) > current.strumThreshold)) {
 				onStrum();
 				//console.log('motion detected on strum');
@@ -64,6 +83,15 @@
 				current.lastStrumTime = ev.timeStamp;
 			}
 		}
-
 	});
+
+	$("#harp-string").on('motion', function(ev, data){
+		if(data.confidence > 50 && current.mode == "harp") {
+			if(((ev.timeStamp - current.lastStrumTime) > current.strumThreshold)) {
+				onStrum();
+				current.lastStrumTime = ev.timeStamp;
+			}
+		}
+	});
+
 })();
