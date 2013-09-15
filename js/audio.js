@@ -3,24 +3,17 @@
 
     var guitar;
 
-    function play(src, volume) {
-        var audio = document.createElement('audio');
-        audio.autoplay = true;
-        audio.src = src;
-        audio.volume = volume;
-        document.body.appendChild(audio);    
-    }
-
     var chords = {
         'Open': ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'],
         'Em':   ['E2', 'G3', 'C3', 'G3', 'B3', 'E4'],
         'G':    ['G2', 'B2', 'D2', 'G2', 'B2', 'G3'],
-        'D':    ['D2', 'A3', 'D3', 'A4', 'D4', 'Gb4'],
-        'A':    ['A2', 'E3', 'A4', 'Db4', 'E4', 'A5'],
-        'C':    ['C2', 'E3', 'G3' , 'C4', 'E4', 'G4'],
+        'D':    [            'D3', 'A4', 'D4', 'Gb4'],
+        'A':    [      'A2', 'A4', 'Db4', 'E4', 'A5'],
+        'C':    [      'C2', 'G3' , 'C4', 'E4', 'G4'],
         'B':    ['B2', 'Eb3', 'Gb3', 'B4', 'Eb4', 'Gb4'],
         'Am':   ['A2', 'C3', 'E3', 'A4', 'C4', 'E4'],
-        'As':   ['Bb2','Bb3','Bb4','Bb5'],
+        //'As':   ['Bb2','Bb3','Bb4','Bb5'],
+        'As':   [      'D2', 'F3', 'C4', 'D4', 'F4'],
         'F':    ['F2', 'A3', 'C3', 'F3' ,'A4', 'C4'],
         'Cs':   ['Db1', 'Db2','Db3','Db4','Db5'] 
     }
@@ -37,6 +30,7 @@
     var progressions = [
         ['Em', 'G', 'D', 'A'],
         ['G', 'Em', 'C', 'D']
+        // Gm, D7, G7
     ]
 
     var chordKeyCodes = {
@@ -50,7 +44,13 @@
         70: 'F',
         81: 'As',
         86: 'Cs'
-        
+    }
+
+    function play(note, volume) {
+        var audio = $('#' + note)[0];
+        audio.volume = volume;
+        audio.currentTime = 0;
+        audio.play();
     }
 
     function tranpose(chord, octaves) {
@@ -75,13 +75,13 @@
     }
 
     function playChord(chord, down) { 
-        _.each(document.getElementsByTagName('audio'), fadeOut);
+        //_.each(document.getElementsByTagName('audio'), fadeOut);
         
         for (var i = 0; i < chord.length; i++) {
             setTimeout(_.bind(function(j) {
                 var volume = 0.7 + j / chord.length * 0.3;
-                play(guitar[chord[down ? j : (chord.length - j - 1)]], volume);
-            }, {}, i), 10 * i);
+                play(chord[down ? j : (chord.length - j - 1)], volume);
+            }, {}, i), 15 * i);
         }
     }
 
@@ -90,11 +90,13 @@
     $(document).keydown(function(e) {
         usingKey = true;
         chordHeld = chordKeyCodes[e.which];
-        playChord(chords[chordHeld], down);
+        //playChord(chords[chordHeld], down);
     });
 
     $(document).keyup(function(e) {
-        //usingKey = false;
+        if (chordKeyCodes[e.which] == chordHeld) {
+            usingKey = false;
+        }
     });
 
     var down = true;
@@ -130,6 +132,12 @@
         callback: function() {        
             //guitar = MIDI.Soundfont.acoustic_guitar_steel;
             guitar = MIDI.Soundfont[_.keys(MIDI.Soundfont)[0]];
+            _.each(guitar, function(src, key) {
+                var audio = document.createElement('audio');
+                audio.src = src;
+                audio.id = key;
+                document.body.appendChild(audio);    
+            });
         }
     });
 })();

@@ -32,7 +32,7 @@
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 40 && ((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
+		if(data.confidence > 100 && ((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
             onStrum();
 			//console.log('motion detected on strum');
 			//console.log(lastStrum);
