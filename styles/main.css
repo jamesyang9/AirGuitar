@@ -255,6 +255,7 @@ video {
 	width: 70%;
 	left: 30%;
 	top: 70%;
+    opacity: 0.01!important;
 }
 
 .harp-strings {
@@ -275,4 +276,15 @@ video {
 	top: 70%;
 	left: 80%;
     opacity: 0.01!important;
+}
+
+#chord {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+    padding: 10px;
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.3);
+    border-bottom-left-radius: 4px;
 }

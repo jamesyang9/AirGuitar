@@ -106,8 +106,7 @@
 		$('.loading').fadeOut();
 		$('#hotSpots').fadeIn();
 		$('body').addClass('black-background');
-        $('#header').delay(600).fadeIn(600);
-		$(".instructions").delay(600).fadeIn();
+        $('#header, .instructions, #chord').delay(600).fadeIn();
 		$(canvasSource).delay(600).fadeIn();
 		$(canvasBlended).delay(600).fadeIn();
 		$('#canvas-highlights').delay(600).fadeIn();

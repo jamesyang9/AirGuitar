@@ -27,8 +27,8 @@
      */
 
     var progressions = [
-        //['Em', 'G', 'D', 'A'],
-        ['Em', 'G', 'Em', 'G', 'C', 'D']
+        ['Em', 'G', 'D', 'A'],
+        //['Em', 'G', 'Em', 'G', 'C', 'D']
         //['G', 'Em', 'C', 'D']
         // Gm, D7, G7
     ]
@@ -141,8 +141,11 @@
                     prog = ++prog % progressions.length;
                     chordIndex = 0;
                 } else {
-                        chordIndex = ++chordIndex % progressions[prog].length;
+                    chordIndex = ++chordIndex % progressions[prog].length;
                 }
+
+                current.chord = chordIndex;
+                onNoteChange();
                 repeats = 0;
             } else {
                 repeats++;
@@ -162,6 +165,31 @@
         }
 
         down = !down;
+    }
+
+    window.onNoteChange = function() {
+        var chord;
+        if (usingKey && chordHeld) {
+            chord = chordHeld;
+        } else {
+            switch (current.mode) {
+            case 'easy':
+                chord = progressions[prog][current.chord];
+                break;
+                
+            case 'medium':
+                var progression = ['G', 'As', 'C', 'Cs'];
+                chord = progression[Math.min(current.chord, 3)]
+                break;
+                
+            case 'harp':
+                var chordNames = _.keys(chords);
+                chord = chordNames[current.chord];
+                break;
+            }
+        }
+
+        $('#chord').html(chord);
     }
 
     MIDI.loadPlugin({

@@ -19,6 +19,10 @@
 	$(".box").on('motion', function (ev, data) {
 		if(current.mode !== 'harp' && data.confidence > 50) {
 			current.chord = $(this).data("number");
+            
+            if (current.mode === 'medium') {
+                onNoteChange();
+            }
 			//console.log(current.chord);
 		}
 	});
@@ -34,6 +38,7 @@
 		if(current.mode === 'harp' && data.confidence > 50) {
 			//console.log($(this).data("number"));
 			current.chord = $(this).data("number");
+            onNoteChange();
 			//console.log(current.chord);
 		}
 	});
