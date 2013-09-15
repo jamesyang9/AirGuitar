@@ -81,7 +81,7 @@
             setTimeout(_.bind(function(j) {
                 var volume = 0.7 + j / chord.length * 0.3;
                 play(chord[down ? j : (chord.length - j - 1)], volume);
-            }, {}, i), 15 * i);
+            }, {}, i), 150 * i);
         }
     }
 

@@ -4,7 +4,7 @@
 	current.chord = 0;
 	current.boxSize = 15;
 
-    var strumThreshold = 250;
+    var strumThreshold = 150;
 
 	$(document).ready(function () {
 
@@ -23,21 +23,27 @@
 
 	$(window).on('motion', function(ev, data){
 		//console.log('detected motion at', new Date(), 'with data:', data);
-		var spot = $(data.spot.el);
-		spot.addClass('active');
-		setTimeout(function(){
-			spot.removeClass('active');
-		}, 230);
+		if(data.confidence > 60) {
+			var spot = $(data.spot.el);
+			spot.addClass('active');
+			console.log(data.confidence);
+			setTimeout(function(){
+				spot.removeClass('active');
+			}, 230);
+		}
+		
 	});
 
 	// example using a class
 	$('#strum').on('motion', function(ev, data){
-		if(data.confidence > 100 && ((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
-            onStrum();
-			//console.log('motion detected on strum');
-			//console.log(lastStrum);
-			//console.log(ev);
-			//console.log(data);
+		if(data.confidence > 60) {
+			if(((ev.timeStamp - current.lastStrumTime) > strumThreshold)) {
+				onStrum();
+				//console.log('motion detected on strum');
+				//console.log(lastStrum);
+				//console.log(ev);
+				//console.log(data);
+			}
 			current.lastStrumTime = ev.timeStamp;
 		}
 
