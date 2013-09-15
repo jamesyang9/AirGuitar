@@ -50,13 +50,6 @@
 		});
 	});
 
-    $('button').click(function() {
-        $('button').removeClass('current');
-        $(this).addClass('current');
-        
-        // logic for changing modes here
-    });
-
 	function hasGetUserMedia() {
 		// Note: Opera builds are unprefixed.
 		return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||

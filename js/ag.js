@@ -3,8 +3,8 @@
 		lastStrumTime : 0,
 		chord : 0,
 		boxSize : 15,
-		mode : "easy",
 		chordDelay : 15,
+        mode : 'easy',
 		strumThreshold : 300
 	}
 
@@ -17,14 +17,13 @@
 	}
 
 	$(".box").on('motion', function (ev, data) {
-		if(data.confidence > 50) {
+		if(current.mode !== 'harp' && data.confidence > 50) {
 			current.chord = $(this).data("number");
 			//console.log(current.chord);
 		}
 	});
 
 	// Make harp boxes
-
 	for(var i = 0; i < 9; i++) {
 		var offset = 10*i;
 		$("#hotSpots").append('<div id="harp-note'+i+'" class="harp-note" style="top:'+offset+'%">'+offset+'</div>');
@@ -32,7 +31,7 @@
 	}
 
 	$(".harp-note").on('motion', function (ev, data) {
-		if(data.confidence > 50) {
+		if(current.mode === 'harp' && data.confidence > 50) {
 			//console.log($(this).data("number"));
 			current.chord = $(this).data("number");
 			//console.log(current.chord);
@@ -67,13 +66,4 @@
 		}
 
 	});
-
-	$('#harp').click(function (ev) {
-		makeHarp();
-	});
-
-	function makeHarp() {
-		current.chordDelay = 150;
-		current.strumThreshold = 800;
-	}
 })();

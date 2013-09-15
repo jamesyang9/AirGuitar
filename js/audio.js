@@ -27,8 +27,9 @@
      */
 
     var progressions = [
-        ['Em', 'G', 'D', 'A'],
-        ['G', 'Em', 'C', 'D']
+        //['Em', 'G', 'D', 'A'],
+        ['Em', 'G', 'Em', 'G', 'C', 'D']
+        //['G', 'Em', 'C', 'D']
         // Gm, D7, G7
     ]
 
@@ -88,6 +89,10 @@
     var chordHeld;
     $(document).keydown(function(e) {
         usingKey = true;
+        if (e.which == 82) {
+            chordIndex = 0;
+            repeats = 0;
+        }
         chordHeld = chordKeyCodes[e.which];
     });
 
@@ -97,29 +102,63 @@
         }
     });
 
+    $('button').click(function() {
+        $('button').removeClass('current');
+        $(this).addClass('current');
+        
+        current.mode = this.id;
+        switch (current.mode) {
+        case 'easy':
+        case 'medium':
+            current.chordDelay = 15;
+		    current.strumThreshold = 600;
+            break;
+
+        case 'harp':
+            current.chordDelay = 150;
+		    current.strumThreshold = 800;
+            break;
+        }
+    });
+
     var down = true;
     var chordIndex = 0;
     var repeats = 0;
-    var prog = 1;
+    var prog = 0;
 
     window.onStrum = function() {
         if (usingKey && chordHeld) {
             playChord(chords[chordHeld], down);
-        } else {
+            down = !down;
+            return;
+        }
+        
+        switch (current.mode) {
+        case 'easy':
             var chord = tranpose(chords[progressions[prog][chordIndex]], Math.floor((current.chord - 2) / 2));
-            console.log(chordIndex, prog);
             if (repeats == 1) {
                 if (chordIndex == progressions[prog].length - 1) {
                     prog = ++prog % progressions.length;
                     chordIndex = 0;
-            } else {
-                chordIndex = ++chordIndex % progressions[prog].length;
-            }
-            repeats = 0;
+                } else {
+                        chordIndex = ++chordIndex % progressions[prog].length;
+                }
+                repeats = 0;
             } else {
                 repeats++;
             }
             playChord(chord, down);
+            break;
+
+        case 'medium':
+            var progression = ['G', 'As', 'C', 'Cs'];
+            playChord(chords[progression[Math.min(current.chord, 3)]], down)
+            break;
+
+        case 'harp':
+            var chordNames = _.keys(chords);
+            playChord(chords[chordNames[current.chord]], down);
+            break;
         }
 
         down = !down;

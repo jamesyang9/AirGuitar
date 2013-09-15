@@ -247,6 +247,7 @@ video {
 .box {
 	height: 15%;
 	width: 15%;
+    opacity: 0.01!important;
 }
 
 #harp-string {
@@ -254,11 +255,13 @@ video {
 	width: 70%;
 	left: 30%;
 	top: 70%;
+    opacity: 0.01!important;
 }
 
 .harp-note { 
 	height: 10%;
 	width: 15%;
+    opacity: 0.01!important;
 }
 
 #strum {
@@ -266,4 +269,5 @@ video {
 	width: 20%;
 	top: 70%;
 	left: 80%;
+    opacity: 0.01!important;
 }
