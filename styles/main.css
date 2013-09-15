@@ -245,16 +245,16 @@ video {
 }
 
 .box {
-	height: 30%;
+	height: 35%;
 	width: 15%;
-    opacity: 0.01!important;
+
 }
 
 #harp-string {
-	height: 5%;
-	width: 70%;
-	left: 30%;
-	top: 70%;
+	height: 50%;
+	width: 50%;
+	left: 50%;
+	top: 20%;
     opacity: 0.01!important;
 }
 

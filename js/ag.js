@@ -12,7 +12,8 @@
 
 	for(var i = 0; i < 5; i++) {
 		var offset = 15*i;
-		$("#hotSpots").append('<div id="box'+i+'"class="box" style="top:'+offset+'%; left:'+offset+'%">'+offset+'</div>');
+		var offsetTop = 10 * i;
+		$("#hotSpots").append('<div id="box'+i+'"class="box" style="top:'+offsetTop+'%; left:'+offset+'%">'+offset+'</div>');
 		$("#box"+i).data("number", i);
 	}
 
@@ -65,7 +66,7 @@
 
 	// Light up on activity.
 	$(window).on('motion', function(ev, data){
-		console.log(current.chord);
+		//console.log(current.chord);
 		//console.log('detected motion at', new Date(), 'with data:', data);
 		if(data.confidence > 90 && false) {
 			var spot = $(data.spot.el);
@@ -93,8 +94,9 @@
 	});
 
 	$("#harp-string").on('motion', function(ev, data){
+		console.log(current.mode);
 		if(data.confidence > 50 && current.mode == "harp") {
-			console.log("hi");
+			console.log("hiiii");
 			if(((ev.timeStamp - current.lastStrumTime) > current.strumThreshold)) {
 				onStrum();
 				current.lastStrumTime = ev.timeStamp;
